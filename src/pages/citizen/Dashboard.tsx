@@ -1,25 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Plus, MapPin, List, Users, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import IssuesMap from "@/components/civic/IssuesMap";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import Header from "@/components/layout/Header";
 import StatusBadge from "@/components/civic/StatusBadge";
-import { mockIssues, categoryIcons } from "@/data/mockData";
+import { mockIssues, categoryIcons, type Issue } from "@/data/mockData";
+import { getStoredIssues } from "@/lib/issuesStorage";
+import { municipalCenter, withinRadius } from "@/lib/geo";
 import { useNavigate } from "react-router-dom";
 
 const CitizenDashboard = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("map");
 
-  const userIssues = mockIssues.slice(0, 3); // Mock user's reported issues
-  const nearbyIssues = mockIssues.slice(1, 4); // Mock nearby issues
+  const [userIssues, setUserIssues] = useState<Issue[]>([]);
+  const [nearbyIssues, setNearbyIssues] = useState<Issue[]>([]);
+
+  useEffect(() => {
+    const local = getStoredIssues();
+    setUserIssues(local);
+    const all = [...local, ...mockIssues];
+    const filtered = all.filter(i => withinRadius(municipalCenter, { lat: i.location.lat, lng: i.location.lng }, 15));
+    setNearbyIssues(filtered);
+  }, []);
 
   const stats = [
-    { label: "My Reports", value: "12", icon: List },
-    { label: "Resolved", value: "8", icon: Home },
-    { label: "Community Impact", value: "45", icon: Users }
+    { label: "My Reports", value: String(userIssues.length), icon: List, onClick: () => setActiveTab('reports') },
+    { label: "Resolved", value: String(nearbyIssues.filter(i => i.status === 'resolved').length), icon: Home, onClick: () => setActiveTab('community') },
+    { label: "Community Impact", value: String(nearbyIssues.reduce((a, i) => a + i.verificationCount, 0)), icon: Users, onClick: () => setActiveTab('community') }
   ];
 
   return (
@@ -47,7 +58,7 @@ const CitizenDashboard = () => {
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {stats.map((stat, index) => (
-            <Card key={index} className="hover:shadow-civic transition-shadow">
+            <Card key={index} className="hover:shadow-civic transition-shadow cursor-pointer" onClick={stat.onClick}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -92,14 +103,8 @@ const CitizenDashboard = () => {
                   Nearby Issues Map
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="h-full bg-muted rounded-lg flex items-center justify-center">
-                  <div className="text-center space-y-2">
-                    <MapPin className="h-12 w-12 text-muted-foreground mx-auto" />
-                    <p className="text-muted-foreground">Interactive map will be displayed here</p>
-                    <p className="text-sm text-muted-foreground">Showing {nearbyIssues.length} nearby issues</p>
-                  </div>
-                </div>
+              <CardContent className="h-[calc(24rem-4.5rem)]">
+                <IssuesMap issues={nearbyIssues} className="h-full" />
               </CardContent>
             </Card>
 

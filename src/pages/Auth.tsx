@@ -13,7 +13,7 @@ const Auth = () => {
   const [searchParams] = useSearchParams();
   const defaultType = searchParams.get('type') || 'citizen';
   
-  const [userType, setUserType] = useState<'citizen' | 'ngo' | 'admin'>(defaultType as any);
+  const [userType, setUserType] = useState<'citizen' | 'ngo' | 'admin'>(defaultType as 'citizen' | 'ngo' | 'admin');
   const [isLogin, setIsLogin] = useState(true);
 
   const handleAuth = (e: React.FormEvent) => {
@@ -78,7 +78,7 @@ const Auth = () => {
               {/* User Type Selector */}
               <div className="space-y-2">
                 <Label>User Type</Label>
-                <Tabs value={userType} onValueChange={(value) => setUserType(value as any)}>
+                <Tabs value={userType} onValueChange={(value) => setUserType(value as 'citizen' | 'ngo' | 'admin')}>
                   <TabsList className="grid w-full grid-cols-3">
                     <TabsTrigger value="citizen">Citizen</TabsTrigger>
                     <TabsTrigger value="ngo">NGO</TabsTrigger>

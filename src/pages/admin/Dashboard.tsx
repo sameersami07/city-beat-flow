@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import Header from "@/components/layout/Header";
 import StatusBadge from "@/components/civic/StatusBadge";
 import { mockIssues, categoryIcons, departmentColors } from "@/data/mockData";
+import { getStoredIssues } from "@/lib/issuesStorage";
+import { municipalCenter, withinRadius } from "@/lib/geo";
 
 const AdminDashboard = () => {
   const [filterStatus, setFilterStatus] = useState<string>("all");
@@ -44,7 +46,9 @@ const AdminDashboard = () => {
     }
   ];
 
-  const filteredIssues = mockIssues.filter(issue => {
+  const allIssues = [...getStoredIssues(), ...mockIssues];
+  const muniScoped = allIssues.filter(i => withinRadius(municipalCenter, { lat: i.location.lat, lng: i.location.lng }, 50));
+  const filteredIssues = muniScoped.filter(issue => {
     const statusMatch = filterStatus === "all" || issue.status === filterStatus;
     const categoryMatch = filterCategory === "all" || issue.category === filterCategory;
     return statusMatch && categoryMatch;

@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import Header from "@/components/layout/Header";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { addNewIssue } from "@/lib/issuesStorage";
 
 const ReportIssue = () => {
   const navigate = useNavigate();
@@ -149,8 +150,15 @@ const ReportIssue = () => {
       return;
     }
 
-    // Here you would typically submit to your backend
-    console.log("Submitting report:", formData);
+    // Save locally so it shows in My Reports and Map
+    addNewIssue({
+      title: formData.title,
+      description: formData.description,
+      category: formData.category,
+      locationText: formData.location,
+      locationCoords: currentLocation,
+      urgency: formData.urgency as any,
+    });
     
     toast({
       title: "Report Submitted",
