@@ -1,10 +1,10 @@
-import { ArrowRight, CheckCircle, MapPin, Users, Shield, Smartphone } from "lucide-react";
+import { ArrowRight, CheckCircle, MapPin, Users, Shield, Smartphone, Camera, Navigation, Zap, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import heroImage from "@/assets/hero-civic-tech.jpg";
-import workflowImage from "@/assets/workflow-diagram.jpg";
+import enhancedWorkflow from "@/assets/enhanced-workflow.jpg";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -131,14 +131,86 @@ const Landing = () => {
             ))}
           </div>
 
-          {/* Workflow Diagram */}
-          <div className="bg-muted/30 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-center text-foreground mb-8">Complete Workflow</h3>
-            <img 
-              src={workflowImage} 
-              alt="CivicTracker Workflow Diagram" 
-              className="w-full h-auto rounded-xl shadow-card"
-            />
+          {/* Enhanced Workflow Section */}
+          <div className="space-y-12">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Card className="group hover:shadow-civic transition-all duration-300 border-primary/20">
+                <CardContent className="p-6 text-center">
+                  <div className="h-16 w-16 rounded-full bg-gradient-primary flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <Camera className="h-8 w-8 text-primary-foreground" />
+                  </div>
+                  <h4 className="font-semibold text-foreground mb-2">Instant Capture</h4>
+                  <p className="text-sm text-muted-foreground">Camera access for real-time photo reporting</p>
+                </CardContent>
+              </Card>
+
+              <Card className="group hover:shadow-civic transition-all duration-300 border-secondary/20">
+                <CardContent className="p-6 text-center">
+                  <div className="h-16 w-16 rounded-full bg-gradient-secondary flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <Navigation className="h-8 w-8 text-secondary-foreground" />
+                  </div>
+                  <h4 className="font-semibold text-foreground mb-2">Smart Location</h4>
+                  <p className="text-sm text-muted-foreground">Auto GPS tagging and map integration</p>
+                </CardContent>
+              </Card>
+
+              <Card className="group hover:shadow-civic transition-all duration-300 border-accent/20">
+                <CardContent className="p-6 text-center">
+                  <div className="h-16 w-16 rounded-full bg-gradient-accent flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <Zap className="h-8 w-8 text-accent-foreground" />
+                  </div>
+                  <h4 className="font-semibold text-foreground mb-2">AI Routing</h4>
+                  <p className="text-sm text-muted-foreground">Automatic department assignment</p>
+                </CardContent>
+              </Card>
+
+              <Card className="group hover:shadow-civic transition-all duration-300 border-success/20">
+                <CardContent className="p-6 text-center">
+                  <div className="h-16 w-16 rounded-full bg-gradient-success flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <Target className="h-8 w-8 text-white" />
+                  </div>
+                  <h4 className="font-semibold text-foreground mb-2">Live Tracking</h4>
+                  <p className="text-sm text-muted-foreground">Real-time status and resolution updates</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="bg-gradient-to-br from-muted/50 to-muted/30 rounded-2xl p-8 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5"></div>
+              <div className="relative z-10">
+                <h3 className="text-2xl font-bold text-center text-foreground mb-6">
+                  Complete Workflow Integration
+                </h3>
+                <img 
+                  src={enhancedWorkflow} 
+                  alt="Enhanced CivicTracker Workflow with Maps and Camera" 
+                  className="w-full h-auto rounded-xl shadow-civic mx-auto"
+                />
+                <div className="grid md:grid-cols-3 gap-6 mt-8">
+                  <div className="text-center">
+                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                      <MapPin className="h-6 w-6 text-primary" />
+                    </div>
+                    <h4 className="font-semibold text-foreground mb-1">Interactive Maps</h4>
+                    <p className="text-sm text-muted-foreground">Real-time issue visualization on city maps</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mx-auto mb-3">
+                      <Camera className="h-6 w-6 text-secondary" />
+                    </div>
+                    <h4 className="font-semibold text-foreground mb-1">Camera Integration</h4>
+                    <p className="text-sm text-muted-foreground">Native camera access for instant reporting</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="h-12 w-12 rounded-lg bg-accent/10 flex items-center justify-center mx-auto mb-3">
+                      <Users className="h-6 w-6 text-accent" />
+                    </div>
+                    <h4 className="font-semibold text-foreground mb-1">Community Power</h4>
+                    <p className="text-sm text-muted-foreground">Crowdsourced verification and support</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

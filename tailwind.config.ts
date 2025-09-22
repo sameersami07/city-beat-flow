@@ -79,6 +79,7 @@ export default {
         'gradient-secondary': 'var(--gradient-secondary)',
         'gradient-hero': 'var(--gradient-hero)',
         'gradient-accent': 'var(--gradient-accent)',
+        'gradient-success': 'var(--gradient-success)',
       },
       boxShadow: {
         'civic': 'var(--shadow-civic)',
