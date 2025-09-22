@@ -15,11 +15,20 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        
+        // Civic-specific variants
+        hero: "bg-gradient-primary text-primary-foreground shadow-button hover:shadow-civic transform hover:scale-105 transition-all duration-300",
+        civic: "bg-primary text-primary-foreground shadow-civic hover:bg-primary-dark transition-smooth",
+        municipal: "bg-secondary text-secondary-foreground shadow-civic hover:bg-secondary/90 transition-smooth",
+        community: "bg-accent text-accent-foreground shadow-civic hover:bg-accent/90 transition-smooth",
+        status: "border-2 border-primary text-primary bg-background hover:bg-primary hover:text-primary-foreground transition-smooth",
+        emergency: "bg-destructive text-destructive-foreground shadow-button animate-pulse hover:animate-none",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
+        xl: "h-12 rounded-lg px-10 text-base",
         icon: "h-10 w-10",
       },
     },
